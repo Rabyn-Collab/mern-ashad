@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+  </head>
+
+  <body>
+
+
+    <form action="mailto:rabyn900@gmail.com" method="post" enctype="text/plain">
+      <p>
+        <label for="user">Username: </label>
+        <input placeholder="username" name="username" type="text" id="user">
+      </p>
+
+      <p>
+        <label for="email">Email: </label>
+        <input placeholder="email" name="email" type="email" id="email">
+
+
+      </p>
+
+      <p>
+      <h3>Select your gender</h3>
+      <label for="male">Male</label>
+      <input type="radio" value="male" id="male" name="gender">
+      <label for="female">Female</label>
+      <input type="radio" value="female" id="female" name="gender">
+      </p>
+
+      <p>
+      <h3>Select Your Habits</h3>
+      <label for="dance">Dance</label>
+      <input type="checkbox" name="habits" value="dance" id="dance">
+      <label for="sing">Sing</label>
+      <input type="checkbox" name="habits" value="sing" id="sing">
+
+      </p>
+      <p>
+        <label for="country">Select your Country</label>
+        <select name="country" id="country">
+          <option value="nepal">Nepal</option>
+          <option value="india">India</option>
+          <option value="china">China</option>
+        </select>
+      </p>
+      <p>
+        <label for="msg">Type Your message:</label>
+        <br>
+        <textarea name="message" id="msg" rows="5" cols="30"></textarea>
+      </p>
+      <p>
+        <label for="dob">Date of Birth</label>
+        <input type="date" name="dob" id="dob">
+      </p>
+
+
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
+
+
+
+
+    </form>
+
+  </body>
+
+</html>
