@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+
+@theme {
+
+
+  /* --color-*: initial;
+  --color-white: #fff;
+  --color-purple: #3f3cbb;
+  --color-midnight: #121063;
+  --color-tahiti: #3ab7bf;
+  --color-bermuda: #78dcca; */
+
+
+  /* --text-*: initial; */
+  /* --text-40: 40px; */
+
+  --animate-trin: ani 2s ease-in 0s infinite;
+
+  @keyframes ani {
+    20% {
+      transform: scale(2);
+      background-color: red;
+    }
+
+    50% {
+      background-color: green;
+    }
+
+    100% {
+      transform: rotate(180deg);
+    }
+  }
+
+
+
+}
+
+@layer base {
+  h1 {
+    @apply text-2xl font-semibold;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-gray-300 rounded-2xl w-[200px] text-center shadow-lg p-[5px] my-2;
+  }
+}
+
+@layer utilities {
+  .square {
+    @apply h-[200px] w-[200px];
+  }
+}
