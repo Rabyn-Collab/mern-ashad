@@ -1,12 +1,15 @@
 import { Outlet } from "react-router";
-import Header from "./Header.jsx";
+import Header from "./Header";
 
-export default function RootLayOut() {
+export default function RootLayout() {
   return (
     <div>
+
+
       <Header />
 
       <Outlet />
+
     </div>
   )
 }

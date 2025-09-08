@@ -1,31 +1,26 @@
-import { createBrowserRouter } from "react-router";
-import { RouterProvider } from "react-router-dom";
-import Home from "./pages/home/Home.jsx";
-import RootLayOut from "./components/RootLayOut.jsx";
-import NotFound from "./pages/not-found/NotFound.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router"
+import RootLayout from "./components/RootLayout"
+import Categories from "./categories/Categories"
+import CategoryItems from "./category-items/CategoryItems"
 
 export default function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <RootLayOut />,
+      element: <RootLayout />,
       children: [
+
         {
           index: true,
-          element: <Home />
+          element: <Categories />
         },
-
+        {
+          path: 'category-items/:name',
+          element: <CategoryItems />
+        }
 
       ]
-    },
-    {
-      path: '*',
-      element: <NotFound />
-
     }
-
-
-
-  ]);
+  ])
   return <RouterProvider router={router} />
 }
