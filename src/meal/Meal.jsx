@@ -32,7 +32,7 @@ export default function Meal() {
   // console.log(person['name'])
 
 
-  //console.log(data);
+
 
 
   return (
