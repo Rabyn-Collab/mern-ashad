@@ -24,7 +24,6 @@ export default function CategoryItems() {
     getData();
   }, []);
 
-  console.log(data);
 
 
 
@@ -40,13 +39,12 @@ export default function CategoryItems() {
           defaultSelectedKeys={["1"]}
           items={data.meals}
           label="Assigned to"
-
-
           variant="flat"
-
         >
           {(item) => (
-            <ListboxItem key={item.idMeal} textValue={item.name}>
+            <ListboxItem
+              onClick={() => nav(`/meal/${item.idMeal}`)}
+              key={item.idMeal} textValue={item.strMeal}>
               <div className="flex gap-2 items-center">
                 <Avatar alt={item.strMeal} className="shrink-0" size="lg" src={item.strMealThumb} />
                 <div className="flex flex-col">

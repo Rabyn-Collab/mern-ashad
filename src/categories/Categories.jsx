@@ -5,14 +5,20 @@ import { useNavigate } from "react-router";
 export default function Categories() {
 
   const [data, setData] = useState();
+  const [load, setLoad] = useState(false);
+  const [err, setErr] = useState();
   const nav = useNavigate();
 
   const getData = async () => {
+    setLoad(true);
     try {
       const response = await axios.get('https://www.themealdb.com/api/json/v1/1/categories.php');
+      setLoad(false);
       setData(response.data);
+
     } catch (err) {
-      console.log(err);
+      setLoad(false);
+      setErr(err.response.data);
     }
   }
 
@@ -20,6 +26,11 @@ export default function Categories() {
     getData();
   }, []);
 
+  if (load) return <h1>Loading....</h1>
+
+  if (err) {
+    return <div dangerouslySetInnerHTML={{ __html: err }} />
+  }
 
 
 
@@ -28,7 +39,7 @@ export default function Categories() {
 
 
   return (
-    <div className="px-10 py-3 grid grid-cols-4 gap-5">
+    <div className="px-10 py-3 grid grid-cols-[repeat(auto-fit,minmax(270px,1fr))] gap-5">
       {data && data.categories.map((cata) => {
         return <Card
           isPressable
