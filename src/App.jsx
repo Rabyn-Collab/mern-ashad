@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router"
 import Categories from "./categories/Categories"
 import CategoryItems from "./category-items/CategoryItems"
 import Meal from "./meal/Meal"
-import RootLayout from "./components/RootLayout"
+import RootLayout from "./components/RootLayout.jsx"
 
 export default function App() {
   const router = createBrowserRouter([
