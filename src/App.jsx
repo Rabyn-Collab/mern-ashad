@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router"
-import Categories from "./categories/Categories"
-import CategoryItems from "./category-items/CategoryItems"
-import Meal from "./meal/Meal"
+
 import RootLayout from "./components/RootLayout.jsx";
+import Home from "./home/Home.jsx";
+import UserAdd from "./users/UserAdd.jsx";
 
 
 export default function App() {
@@ -14,16 +14,14 @@ export default function App() {
 
         {
           index: true,
-          element: <Categories />
+          element: <Home />
+
         },
         {
-          path: 'category-items/:name',
-          element: <CategoryItems />
-        },
-        {
-          path: 'meal/:id',
-          element: <Meal />
+          path: 'add-user',
+          element: <UserAdd />
         }
+
       ]
     }
   ])
