@@ -1,6 +1,9 @@
 import { Form, Input, Button, Checkbox, RadioGroup, Radio, Select, SelectItem, Textarea } from "@heroui/react";
 import { Formik } from "formik";
+import { useDispatch } from "react-redux";
 import * as Yup from 'yup';
+import { setUser } from "./userSlice";
+import { useNavigate } from "react-router";
 
 const habits = ['dance', 'sing', 'code', 'swim']
 const countries = [
@@ -13,14 +16,16 @@ const countries = [
 
 const valSchema = Yup.object({
   username: Yup.string().min(5).max(20).required(),
-  email: '',
-  habits: [],
-  gender: '',
-  country: '',
-  description: ''
+  email: Yup.string().email().required(),
+  habits: Yup.array().min(1).required(),
+  gender: Yup.string().required(),
+  country: Yup.string().required(),
+  description: Yup.string().required(),
 })
 
 export default function UserAdd() {
+  const dispatch = useDispatch();
+  const nav = useNavigate();
   return (
     <div className="p-5">
 
@@ -34,8 +39,9 @@ export default function UserAdd() {
           description: ''
         }}
 
-        onSubmit={(val) => {
-          console.log(val);
+        onSubmit={(val, { resetForm }) => {
+          dispatch(setUser(val));
+          nav(-1);
         }}
         validationSchema={valSchema}
       >
@@ -47,6 +53,7 @@ export default function UserAdd() {
             onSubmit={handleSubmit}
             className="w-full max-w-xs flex flex-col gap-4">
             <Input
+              value={values.username}
               onChange={handleChange}
               label="Username"
               labelPlacement="outside"
@@ -59,11 +66,15 @@ export default function UserAdd() {
             <Input
               onChange={handleChange}
               label="Email"
+              value={values.email}
               labelPlacement="outside"
               name="email"
               placeholder="Enter your email"
-              type="email"
+
             />
+            {errors.email && touched.email && <p className="text-red-500">{errors.email}</p>}
+
+
             <div className="space-y-3">
               <h2 className="text-md">Select your habits</h2>
               <div className="flex gap-4">
@@ -77,6 +88,7 @@ export default function UserAdd() {
 
 
               </div>
+              {errors.habits && touched.habits && <p className="text-red-500">{errors.habits}</p>}
             </div>
 
             <RadioGroup onChange={handleChange} name="gender" label="Select your Gender">
@@ -84,24 +96,29 @@ export default function UserAdd() {
               <Radio value="female">Female</Radio>
               <Radio value="other">Other</Radio>
             </RadioGroup>
+            {errors.gender && touched.gender && <p className="text-red-500">{errors.gender}</p>}
 
             <Select
               className="max-w-xs"
               name="country"
+              value={values.country}
               onChange={handleChange}
               label="Country"
               placeholder="Select your Country"
             >
               {countries.map((country) => (
                 <SelectItem
-                  key={country.key}>{country.label}</SelectItem>
+                  key={country.key} >{country.label}</SelectItem>
               ))}
             </Select>
+            {errors.country && touched.country && <p className="text-red-500">{errors.country}</p>}
 
             <Textarea
+              value={values.description}
               onChange={handleChange}
               name="description"
               className="max-w-xs" label="Description" placeholder="Enter your description" />
+            {errors.description && touched.description && <p className="text-red-500">{errors.description}</p>}
 
             <Button color="primary" type="submit">
               Submit
