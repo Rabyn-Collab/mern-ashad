@@ -1,9 +1,9 @@
 import { Form, Input, Button, Checkbox, RadioGroup, Radio, Select, SelectItem, Textarea } from "@heroui/react";
 import { Formik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from 'yup';
 import { setUser } from "./userSlice";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { nanoid } from "@reduxjs/toolkit";
 
 const habits = ['dance', 'sing', 'code', 'swim']
@@ -24,7 +24,14 @@ const valSchema = Yup.object({
   description: Yup.string().required(),
 })
 
-export default function UserAdd() {
+export default function UserEdit() {
+  const { id } = useParams();
+
+  const { users } = useSelector((state) => state.userSlice);
+
+  const user = users.find((user) => user.id === id);
+
+
   const dispatch = useDispatch();
   const nav = useNavigate();
   return (
@@ -32,12 +39,12 @@ export default function UserAdd() {
 
       <Formik
         initialValues={{
-          username: '',
-          email: '',
-          habits: [],
-          gender: '',
-          country: '',
-          description: ''
+          username: user.username,
+          email: user.email,
+          habits: user.habits,
+          gender: user.gender,
+          country: user.country,
+          description: user.description
         }}
 
         onSubmit={(val, { resetForm }) => {
@@ -86,6 +93,7 @@ export default function UserAdd() {
                 {habits.map((habit, index) => {
                   return <Checkbox
                     key={index}
+                    defaultSelected={values.habits.includes(habit)}
                     onChange={handleChange}
                     value={habit} name="habits">{habit}</Checkbox>
                 })}
@@ -95,7 +103,7 @@ export default function UserAdd() {
               {errors.habits && touched.habits && <p className="text-red-500">{errors.habits}</p>}
             </div>
 
-            <RadioGroup onChange={handleChange} name="gender" label="Select your Gender">
+            <RadioGroup onChange={handleChange} name="gender" label="Select your Gender" defaultValue={values.gender}>
               <Radio value="male">Male</Radio>
               <Radio value="female">Female</Radio>
               <Radio value="other">Other</Radio>
@@ -108,6 +116,7 @@ export default function UserAdd() {
               value={values.country}
               onChange={handleChange}
               label="Country"
+              defaultSelectedKeys={[values.country]}
               placeholder="Select your Country"
             >
               {countries.map((country) => (
