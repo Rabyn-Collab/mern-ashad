@@ -1,9 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router"
-
 import RootLayout from "./components/RootLayout.jsx";
-import Home from "./home/Home.jsx";
-import UserAdd from "./users/UserAdd.jsx";
-import UserEdit from "./users/UserEdit.jsx";
+import Home from "./features/home/Home.jsx";
 
 
 export default function App() {
@@ -17,16 +14,8 @@ export default function App() {
         {
           index: true,
           element: <Home />
+        },
 
-        },
-        {
-          path: 'add-user',
-          element: <UserAdd />
-        },
-        {
-          path: 'edit-user/:id',
-          element: <UserEdit />
-        }
 
       ]
     }
