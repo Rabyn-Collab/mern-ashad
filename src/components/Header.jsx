@@ -1,4 +1,3 @@
-import { Button } from "@heroui/button";
 import {
   Navbar,
   NavbarBrand,
