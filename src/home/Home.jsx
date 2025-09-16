@@ -10,7 +10,7 @@ export default function Home() {
 
 
   return (
-    <div className="p-5 grid grid-cols-3">
+    <div className="p-5 grid grid-cols-3 gap-5">
 
       {users.map((user, i) => {
         return <Card key={user.id} >

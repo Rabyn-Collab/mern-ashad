@@ -6,11 +6,11 @@ import { setUser } from "./userSlice";
 import { useNavigate } from "react-router";
 import { nanoid } from "@reduxjs/toolkit";
 
-const habits = ['dance', 'sing', 'code', 'swim']
+const habits = ['dance', 'sing', 'code', 'swim'];
 const countries = [
-  { key: "nepal", label: "Nepal" },
-  { key: "india", label: "India" },
-  { key: "china", label: "China" },
+  { key: "Nepal", label: "Nepal" },
+  { key: "India", label: "India" },
+  { key: "China", label: "China" },
 
 ];
 

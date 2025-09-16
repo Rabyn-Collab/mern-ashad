@@ -23,6 +23,15 @@ export const userSlice = createSlice({
     removeUser: (state, action) => {
       state.users.splice(action.payload, 1);
       setUsersToLocal(state.users);
+    },
+
+    updateUser: (state, action) => {
+
+      state.users = state.users.map((user) => {
+        return user.id === action.payload.id ? action.payload : user;
+      });
+      setUsersToLocal(state.users);
+
     }
 
 
@@ -32,7 +41,7 @@ export const userSlice = createSlice({
 });
 
 
-export const { setUser, removeUser } = userSlice.actions;
+export const { setUser, removeUser, updateUser } = userSlice.actions;
 
 
 

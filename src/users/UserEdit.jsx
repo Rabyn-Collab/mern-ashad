@@ -2,15 +2,15 @@ import { Form, Input, Button, Checkbox, RadioGroup, Radio, Select, SelectItem, T
 import { Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from 'yup';
-import { setUser } from "./userSlice";
+import { updateUser } from "./userSlice";
 import { useNavigate, useParams } from "react-router";
-import { nanoid } from "@reduxjs/toolkit";
+
 
 const habits = ['dance', 'sing', 'code', 'swim']
 const countries = [
-  { key: "nepal", label: "Nepal" },
-  { key: "india", label: "India" },
-  { key: "china", label: "China" },
+  { key: "Nepal", label: "Nepal" },
+  { key: "India", label: "India" },
+  { key: "China", label: "China" },
 
 ];
 
@@ -32,6 +32,8 @@ export default function UserEdit() {
   const user = users.find((user) => user.id === id);
 
 
+
+
   const dispatch = useDispatch();
   const nav = useNavigate();
   return (
@@ -48,9 +50,9 @@ export default function UserEdit() {
         }}
 
         onSubmit={(val, { resetForm }) => {
-          dispatch(setUser({
+          dispatch(updateUser({
             ...val,
-            id: nanoid()
+            id: id
           }));
           nav(-1);
         }}
