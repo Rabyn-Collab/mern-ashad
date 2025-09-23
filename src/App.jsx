@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router"
 import RootLayout from "./components/RootLayout.jsx";
 import Home from "./features/home/Home.jsx";
+import AddPost from "./features/posts/AddPost.jsx";
 
 
 export default function App() {
@@ -15,6 +16,10 @@ export default function App() {
           index: true,
           element: <Home />
         },
+        {
+          path: '/add-post',
+          element: <AddPost />
+        }
 
 
       ]
