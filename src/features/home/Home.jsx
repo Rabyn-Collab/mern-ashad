@@ -1,6 +1,7 @@
 import CardSkeleton from "../../components/CardSkeleton";
 import { useGetPostsQuery } from "../posts/postApi"
-import { Card, CardHeader, CardBody, Image } from "@heroui/react";
+import { Card, CardHeader, CardBody, Image, CardFooter, Button } from "@heroui/react";
+import RemovePost from "../posts/RemovePost";
 export default function Home() {
   const { isLoading, error, data } = useGetPostsQuery();
 
@@ -33,6 +34,18 @@ export default function Home() {
               width={270}
             />
           </CardBody>
+
+          <CardFooter>
+            <div className="flex gap-4 items-center">
+
+              <Button isIconOnly aria-label="Take a photo" color="warning" variant="faded">
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Button>
+              <RemovePost id={post.id} />
+
+            </div>
+          </CardFooter>
+
         </Card>
       })}
 

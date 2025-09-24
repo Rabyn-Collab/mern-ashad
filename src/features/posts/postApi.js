@@ -8,11 +8,20 @@ export const postApi = createApi({
 
   endpoints: (builder) => ({
 
+    getPost: builder.query({
+      query: (id) => ({
+        url: `/posts/${id}`,
+        method: 'GET'
+      }),
+      providesTags: ['Post']
+    }),
+
     getPosts: builder.query({
       query: () => ({
         url: '/posts',
         method: 'GET'
-      })
+      }),
+      providesTags: ['Post']
     }),
 
     createPost: builder.mutation({
@@ -20,9 +29,17 @@ export const postApi = createApi({
         url: '/posts',
         body: data,
         method: 'POST'
-      })
-    })
+      }),
+      invalidatesTags: ['Post']
+    }),
 
+    removePost: builder.mutation({
+      query: (id) => ({
+        url: `/posts/${id}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Post']
+    })
 
 
 
@@ -33,4 +50,4 @@ export const postApi = createApi({
 
 });
 
-export const { useGetPostsQuery, useCreatePostMutation } = postApi;
+export const { useGetPostsQuery, useCreatePostMutation, useRemovePostMutation } = postApi;

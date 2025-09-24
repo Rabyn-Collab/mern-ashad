@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from 'yup';
 import { useCreatePostMutation } from "./postApi";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 const valSchema = Yup.object({
   title: Yup.string().required(),
@@ -12,6 +13,7 @@ const valSchema = Yup.object({
 })
 
 export default function AddPost() {
+  const nav = useNavigate();
   const [addPost, { isLoading }] = useCreatePostMutation();
   return (
     <div className="p-5">
@@ -27,7 +29,8 @@ export default function AddPost() {
         onSubmit={async (val) => {
           try {
             await addPost(val).unwrap();
-            toast.success('Post Added Successfully')
+            toast.success('Post Added Successfully');
+            nav(-1);
           } catch (err) {
             toast.error(err.data)
           }
