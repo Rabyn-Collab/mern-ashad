@@ -2,7 +2,9 @@ import CardSkeleton from "../../components/CardSkeleton";
 import { useGetPostsQuery } from "../posts/postApi"
 import { Card, CardHeader, CardBody, Image, CardFooter, Button } from "@heroui/react";
 import RemovePost from "../posts/RemovePost";
+import { useNavigate } from "react-router";
 export default function Home() {
+  const nav = useNavigate();
   const { isLoading, error, data } = useGetPostsQuery();
 
   if (isLoading) return <div className="p-5 grid grid-cols-4 gap-5">
@@ -38,7 +40,9 @@ export default function Home() {
           <CardFooter>
             <div className="flex gap-4 items-center">
 
-              <Button isIconOnly aria-label="Take a photo" color="warning" variant="faded">
+              <Button
+                onPress={() => nav(`/update-post/${post.id}`)}
+                isIconOnly aria-label="Take a photo" color="warning" variant="faded">
                 <i className="fa-solid fa-pen-to-square"></i>
               </Button>
               <RemovePost id={post.id} />

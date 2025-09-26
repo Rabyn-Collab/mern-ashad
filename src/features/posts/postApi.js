@@ -59,4 +59,4 @@ export const postApi = createApi({
 
 });
 
-export const { useGetPostsQuery, useCreatePostMutation, useRemovePostMutation, useUpdatePostMutation } = postApi;
+export const { useGetPostsQuery, useGetPostQuery, useCreatePostMutation, useRemovePostMutation, useUpdatePostMutation } = postApi;

@@ -5,7 +5,7 @@ import { useCreatePostMutation } from "./postApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
-const valSchema = Yup.object({
+export const valSchema = Yup.object({
   title: Yup.string().required(),
   detail: Yup.string().required(),
   author: Yup.string().required(),
