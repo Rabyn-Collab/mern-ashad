@@ -1,6 +1,5 @@
 import express from 'express';
-import { createProduct, deleteProduct, getProduct, getProducts, updateProduct } from './controllers/productController.js';
-import { notAllowed } from './utils/notAllowed.js';
+import productRoutes from './routes/productRoutes.js';
 const app = express();
 const port = 5000;
 
@@ -14,15 +13,9 @@ app.get('/', (req, res) => {
   });
 });
 
-app.route('/api/products')
-  .get(getProducts)
-  .post(createProduct).all(notAllowed);
+app.use(productRoutes);
 
 
-app.route('/api/products/:id')
-  .get(getProduct)
-  .patch(updateProduct)
-  .delete(deleteProduct).all(notAllowed);
 
 
 app.listen(port, () => {
