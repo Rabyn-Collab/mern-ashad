@@ -1,7 +1,18 @@
 import Product from "../models/Product.js";
 
-export const getProducts = (req, res) => {
-  return res.status(200).json({ data: 'all products' });
+export const getProducts = async (req, res) => {
+  try {
+    const products = await Product.find({});
+    return res.status(200).json({
+      status: 'success',
+      data: products
+    });
+  } catch (err) {
+    return res.status(400).json({
+      status: 'Error',
+      data: err.message
+    });
+  }
 }
 
 export const getProduct = (req, res) => {
@@ -9,24 +20,31 @@ export const getProduct = (req, res) => {
 }
 
 export const createProduct = async (req, res) => {
-  try {
+  const { title, price, detail, image, category, brand } = req.body ?? {};
 
+
+  try {
     await Product.create({
-      title: 'hello jee askjdnasd askjd',
-      detail: 'sello jeekjldas dlkjasbd',
-      price: 9000
+      title,
+      price,
+      detail,
+      image,
+      category,
+      brand
     });
     return res.status(201).json({
-      status: 'success',
-      data: 'product sucessfully added'
-    })
-
+      status: 'Success',
+      data: 'product added successfully'
+    });
   } catch (err) {
+
     return res.status(400).json({
-      status: 'error',
+      status: 'Error',
       data: err.message
-    })
+    });
+
   }
+
 };
 
 export const updateProduct = (req, res) => {
