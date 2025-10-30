@@ -1,6 +1,7 @@
 import express from 'express';
 import productRoutes from './routes/productRoutes.js';
 import mongoose from 'mongoose';
+import fileUpload from 'express-fileupload';
 const app = express();
 const port = 5000;
 
@@ -14,6 +15,9 @@ mongoose.connect('mongodb+srv://rabyn900:moles900@cluster0.ikwdezp.mongodb.net/N
 });
 
 app.use(express.json());
+app.use(fileUpload({
+  limits: { fileSize: 5 * 1024 * 1024 },
+}));
 
 app.get('/', (req, res) => {
   return res.status(200).json({

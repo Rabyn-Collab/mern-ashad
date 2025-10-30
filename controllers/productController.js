@@ -1,5 +1,5 @@
 import Product from "../models/Product.js";
-
+import fs from 'fs';
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
@@ -28,7 +28,7 @@ export const createProduct = async (req, res) => {
       title,
       price,
       detail,
-      image,
+      image: req.imagePath,
       category,
       brand
     });
@@ -38,10 +38,14 @@ export const createProduct = async (req, res) => {
     });
   } catch (err) {
 
-    return res.status(400).json({
-      status: 'Error',
-      data: err.message
-    });
+    fs.unlink(`./uploads/${req.imagePath}`, (error) => {
+      return res.status(400).json({
+        status: 'Error',
+        data: err.message
+      });
+    })
+
+
 
   }
 
