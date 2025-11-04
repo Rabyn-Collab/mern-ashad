@@ -7,6 +7,10 @@ import { checkId } from '../middlewares/checkId.js';
 
 const router = express.Router();
 
+
+
+
+
 router.route('/api/products')
   .get(getProducts)
   .post(checkFile, createProduct).all(notAllowed);
