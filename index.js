@@ -4,7 +4,7 @@ import userRoutes from './routes/userRoutes.js';
 import mongoose from 'mongoose';
 import fileUpload from 'express-fileupload';
 import nodemailer from 'nodemailer';
-
+import cors from 'cors';
 const app = express();
 const port = 5000;
 
@@ -17,6 +17,7 @@ mongoose.connect('mongodb+srv://rabyn900:moles900@cluster0.ikwdezp.mongodb.net/N
   console.log(err);
 });
 
+app.use(cors());
 app.use(express.json());
 app.use(fileUpload({
   limits: { fileSize: 5 * 1024 * 1024 },
