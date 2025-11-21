@@ -8,7 +8,7 @@ export const getProducts = async (req, res) => {
     const products = await Product.find({});
     return res.status(200).json({
       status: 'success',
-      data: products
+      products
     });
   } catch (err) {
     return res.status(400).json({
@@ -27,19 +27,19 @@ export const getProduct = async (req, res) => {
 
     return res.status(200).json({
       status: 'success',
-      data: isExist
+      product: isExist
     });
 
   } catch (err) {
     return res.status(500).json({
       status: 'error',
-      data: err.message
+      message: err.message
     });
   }
 }
 
 export const createProduct = async (req, res) => {
-  const { title, price, detail, category, brand } = req.body ?? {};
+  const { title, price, detail, category, brand, stock } = req.body ?? {};
 
 
   try {
@@ -49,7 +49,8 @@ export const createProduct = async (req, res) => {
       detail,
       image: req.imagePath,
       category,
-      brand
+      brand,
+      stock
     });
     return res.status(201).json({
       status: 'Success',
@@ -60,7 +61,7 @@ export const createProduct = async (req, res) => {
     fs.unlink(`./uploads/${req.imagePath}`, (error) => {
       return res.status(400).json({
         status: 'Error',
-        data: err.message
+        message: err.message
       });
     })
 
@@ -72,7 +73,7 @@ export const createProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
 
-  const { title, price, detail, category, brand } = req.body ?? {};
+  const { title, price, detail, category, brand, stock } = req.body ?? {};
 
   try {
     const isExist = await Product.findById(req.id);
@@ -91,6 +92,7 @@ export const updateProduct = async (req, res) => {
     isExist.detail = detail || isExist.detail;
     isExist.category = category || isExist.category;
     isExist.brand = brand || isExist.brand;
+    isExist.stock = stock || isExist.stock;
     await isExist.save();
 
     //updating file
@@ -115,20 +117,18 @@ export const updateProduct = async (req, res) => {
 
 
 
-
-
   } catch (err) {
     if (req.imagePath) {
       fs.unlink(`./uploads/${req.imagePath}`, (error) => {
         return res.status(500).json({
           status: 'error',
-          data: err.message
+          message: err.message
         });
       })
     } else {
       return res.status(500).json({
         status: 'error',
-        data: err.message
+        message: err.message
       });
     }
 
@@ -153,7 +153,7 @@ export const deleteProduct = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       status: 'error',
-      data: err.message
+      message: err.message
     });
 
   }
