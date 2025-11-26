@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
       message: '{VALUE} is not supported'
     },
     default: 'user'
-  },
+  }
 }, { timestamps: true });
 
 
