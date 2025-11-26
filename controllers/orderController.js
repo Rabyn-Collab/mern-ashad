@@ -6,10 +6,17 @@ export const getOrders = async (req, res) => {
 
   try {
 
-    const orders = await Order.find({}).populate({
-      path: 'products.productId',
-      model: 'Product'
-    });
+    const orders = await Order.find({}).populate([
+      {
+        path: 'products.productId',
+        model: 'Product'
+      },
+      {
+        path: 'userId',
+        model: 'User',
+        select: '-password'
+      }
+    ]);
     return res.status(200).json({
       status: 'success',
       orders
