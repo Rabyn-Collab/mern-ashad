@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+export const categories = ['food', 'clothes', 'tech', 'jewellrey'];
+export const brands = ['addidas', 'samsung', 'tanishq', 'kfc', 'iphone'];
+
 const productSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -20,19 +23,14 @@ const productSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['food', 'clothes', 'tech', 'jewellrey'],
+    enum: categories,
     required: true
   },
   brand: {
     type: String,
-    enum: ['addidas', 'samsung', 'tanishq', 'kfc', 'iphone'],
+    enum: brands,
     required: true
   },
-  // eggs: {
-  //   type: Number,
-  //   min: [6, 'Too few eggs'],
-  //   max: 12
-  // },
   rating: {
     type: Number,
     default: 0
