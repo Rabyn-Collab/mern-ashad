@@ -47,7 +47,7 @@ export const getProducts = async (req, res) => {
       return acc;
     }, {});
 
-    console.log(output);
+
     let query = Product.find(output);
 
     if (req.query.sort) {
@@ -64,11 +64,14 @@ export const getProducts = async (req, res) => {
     const limit = req.query.limit || 10;
     const skip = (page - 1) * 10;
 
+    const total = await Product.countDocuments();
     const products = await query.skip(skip).limit(limit);
 
     return res.status(200).json({
       status: 'success',
-      products
+      total,
+      products,
+      totalPages: Math.ceil(total / limit)
     });
 
 
