@@ -5,12 +5,15 @@ import orderRoutes from './routes/orderRoutes.js';
 import mongoose from 'mongoose';
 import fileUpload from 'express-fileupload';
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 import cors from 'cors';
 const app = express();
 const port = 5000;
 
+dotenv.config({ quiet: true });
 
-mongoose.connect('mongodb+srv://rabyn900:moles900@cluster0.ikwdezp.mongodb.net/NewShop').then((val) => {
+
+mongoose.connect(process.env.DB_URL).then((val) => {
   app.listen(port, () => {
     console.log('connected and server is running ');
   });
@@ -18,7 +21,9 @@ mongoose.connect('mongodb+srv://rabyn900:moles900@cluster0.ikwdezp.mongodb.net/N
   console.log(err);
 });
 
-app.use(cors());
+app.use(cors({
+  origin: []
+}));
 app.use(express.json());
 app.use(fileUpload({
   limits: { fileSize: 5 * 1024 * 1024 },
