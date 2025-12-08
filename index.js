@@ -10,7 +10,7 @@ import cors from 'cors';
 const app = express();
 const port = 5000;
 
-dotenv.config({ quiet: true });
+dotenv.config();
 
 
 mongoose.connect(process.env.DB_URL).then((val) => {
@@ -22,7 +22,7 @@ mongoose.connect(process.env.DB_URL).then((val) => {
 });
 
 app.use(cors({
-  origin: []
+  origin: ['https://mern-bhdra.vercel.app', 'http://localhost:5173']
 }));
 app.use(express.json());
 app.use(fileUpload({
