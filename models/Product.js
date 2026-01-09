@@ -38,7 +38,24 @@ const productSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true
-  }
+  },
+  reviews: [
+    {
+      rating: {
+        type: Number,
+        required: true
+      },
+      comment: {
+        type: String,
+        required: true
+      },
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      }
+    }
+  ]
 }, { timestamps: true });
 
 

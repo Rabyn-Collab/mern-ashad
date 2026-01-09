@@ -238,3 +238,48 @@ export const deleteProduct = async (req, res) => {
 
   }
 };
+
+
+export const getProductReviews = async (req, res) => {
+  try {
+    const isExist = await Product.findById(req.id).populate({
+      path: 'reviews.userId',
+      model: 'User',
+      select: '-password'
+    });
+    if (!isExist) return res.status(404).json({ status: 'error', data: 'product not found' });
+
+    return res.status(200).json(isExist.reviews);
+
+  } catch (err) {
+    return res.status(500).json({
+      status: 'error',
+      message: err.message
+    });
+  }
+}
+
+
+export const addReview = async (req, res) => {
+  const { rating, comment, name } = req.body ?? {};
+  try {
+    const isExist = await Product.findById(req.id);
+    if (!isExist) return res.status(404).json({ status: 'error', data: 'product not found' });
+
+    isExist.reviews.push({ userId: req.userId, rating, comment });
+    const avgRating = isExist.reviews.reduce((acc, cur) => acc + cur.rating, 0) / isExist.reviews.length;
+    isExist.rating = avgRating;
+    await isExist.save();
+    return res.status(200).json({
+      status: 'success',
+      data: 'review added successfully'
+    });
+
+  } catch (err) {
+    return res.status(500).json({
+      status: 'error',
+      message: err.message
+    });
+  }
+
+}

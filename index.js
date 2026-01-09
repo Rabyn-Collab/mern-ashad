@@ -2,7 +2,6 @@ import express from 'express';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
-import reviewRoutes from './routes/reviewRoutes.js';
 import mongoose from 'mongoose';
 import fileUpload from 'express-fileupload';
 import nodemailer from 'nodemailer';
@@ -12,6 +11,7 @@ const app = express();
 const port = 5000;
 
 dotenv.config();
+
 
 
 mongoose.connect(process.env.DB_URL).then((val) => {
@@ -74,7 +74,6 @@ app.post('/send-email', async (req, res) => {
 app.use(userRoutes);
 app.use(productRoutes);
 app.use(orderRoutes);
-app.use(reviewRoutes);
 
 
 
